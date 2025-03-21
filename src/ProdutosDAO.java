@@ -13,7 +13,7 @@ import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
+import java.sql.SQLException;
 
 public class ProdutosDAO {
     
@@ -22,11 +22,28 @@ public class ProdutosDAO {
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
-    public void cadastrarProduto (ProdutosDTO produto){
+    public int cadastrarProduto (ProdutosDTO produto){
         
+        try{
+        String sql = "insert into produtos(nome,valor,status) values (?,?,?)";
         
-        //conn = new conectaDAO().connectDB();
+        conn = new conectaDAO().connectDB();
         
+        prep = conn.prepareStatement(sql);
+        
+        prep.setString(1, produto.getNome());
+        prep.setInt(2, produto.getValor());
+        prep.setString(3, produto.getStatus());
+        prep.executeUpdate();
+        
+        System.out.print("Dados cadastrados");
+        return 1;
+        
+        }
+        catch(SQLException sqle){
+            System.out.println( "Erro no acesso ao Bando de Dados : "+ sqle.getMessage());
+            return 0;
+        }
         
     }
     
