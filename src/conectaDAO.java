@@ -17,8 +17,9 @@ import javax.swing.JOptionPane;
  */
 public class conectaDAO {
     
+    Connection conn = null;
     public Connection connectDB(){
-        Connection conn = null;
+        
         
         try {
         
@@ -28,6 +29,20 @@ public class conectaDAO {
             JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + erro.getMessage());
         }
         return conn;
+    }
+    
+   
+    public Connection desconectarDB(){
+    
+        try {
+                conn.close();
+            
+                System.out.println( "Conexão com o banco de dados fechada" );
+            } catch (SQLException sqle) {
+               System.out.println( "Erro no fechamento da conexão : " + sqle.getMessage() );
+            }
+        return conn;
+        
     }
     
 }

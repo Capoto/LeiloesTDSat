@@ -210,7 +210,10 @@ public class listagemVIEW extends javax.swing.JFrame {
             
             ArrayList<ProdutosDTO> listagem = produtosdao.listarProdutos();
             
+
+            
             for(int i = 0; i < listagem.size(); i++){
+               
                 model.addRow(new Object[]{
                     listagem.get(i).getId(),
                     listagem.get(i).getNome(),
@@ -219,6 +222,7 @@ public class listagemVIEW extends javax.swing.JFrame {
                 });
             }
         } catch (Exception e) {
+            System.out.println("Teste");
         }
     
     }
