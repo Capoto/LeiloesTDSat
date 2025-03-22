@@ -112,7 +112,42 @@ public class ProdutosDAO {
    
    } 
     
-    
+    public ArrayList<ProdutosDTO> listarProdutosVendidos(){
+        
+        
+        
+        try{
+            
+            String sql = "Select id,nome,valor,status from produtos where status = 'Vendido'";
+            
+            conn = new conectaDAO().connectDB();
+        
+            prep = conn.prepareStatement(sql);
+        
+            ResultSet rs = prep.executeQuery(sql);
+            
+            
+            while(rs.next()){
+            
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+                int valor = rs.getInt("valor");
+                String status = rs.getString("status");
+                
+                ProdutosDTO p  = new ProdutosDTO(id,nome,valor,status); 
+                listagem.add(p);
+            }
+        
+        
+        }catch(SQLException sqle){
+        
+            System.out.println( "Erro efetuando consulta : " + sqle.getMessage() );
+        }
+        
+        //conn =  new conectaDAO().desconectarDB();
+        
+        return listagem;
+    }
         
 }
 
